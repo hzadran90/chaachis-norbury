@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-GB">
 <head>
   <meta charset="utf-8" />
@@ -8,7 +8,12 @@
   <meta name="theme-color" content="#0d0b09" />
   <meta property="og:title" content="Chaachi's Norbury — Family-run Halal Café" />
   <meta property="og:description" content="Homemade sweet treats, savoury bites & speciality drinks. Open late, 7 days a week." />
-  <meta property="og:image" content="assets/img/storefront-night.webp" />
+  <meta property="og:image" content="https://chaachis-norbury.netlify.app/assets/img/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://chaachis-norbury.netlify.app/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://chaachis-norbury.netlify.app/" />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/png" href="assets/img/favicon.png" />
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
@@ -21,7 +26,8 @@
     "@context": "https://schema.org",
     "@type": "CafeOrCoffeeShop",
     "name": "Chaachi's",
-    "image": "assets/img/storefront-night.webp",
+    "image": "https://chaachis-norbury.netlify.app/assets/img/og-image.jpg",
+    "url": "https://chaachis-norbury.netlify.app/",
     "servesCuisine": ["Pakistani", "British", "Desserts", "Coffee", "Tea"],
     "priceRange": "££",
     "address": {
@@ -50,7 +56,8 @@
 
   <!-- Fixed background video — plays the whole time the site is used -->
   <div class="bg-video" aria-hidden="true">
-    <video id="bgVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/poster.jpg">
+    <video id="bgVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/poster.webp" disablepictureinpicture>
+      <source src="assets/video/hero.webm" type="video/webm" />
       <source src="assets/video/hero.mp4" type="video/mp4" />
     </video>
     <div class="bg-video__veil"></div>
@@ -73,7 +80,7 @@
       <a href="#visit">Visit</a>
       <a href="#contact" class="nav__cta">Get in touch</a>
     </nav>
-    <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    <button type="button" class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
   </header>
 
   <main id="top">
@@ -81,8 +88,8 @@
     <section class="hero">
       <div class="hero__text">
         <p class="eyebrow reveal">Family run &middot; حلال &middot; Norbury, South London</p>
-        <h1 class="hero__title" aria-label="Chaachi's">
-          <span class="split">Chaachi's</span>
+        <h1 class="hero__title">
+          <span class="sr-only">Chaachi's</span><span class="split" aria-hidden="true">Chaachi's</span>
         </h1>
         <p class="hero__lede reveal" style="--d:.2s">Homemade sweet treats, savoury bites &amp; speciality hot and cold drinks, served late in a café that feels like home.</p>
         <div class="hero__status reveal" style="--d:.3s">
@@ -96,9 +103,11 @@
       </div>
       <div class="hero__media reveal" style="--d:.25s">
         <div class="arch">
-          <video autoplay muted loop playsinline preload="metadata" poster="assets/video/poster.jpg" aria-label="A look inside Chaachi's at night">
+          <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/poster.webp" disablepictureinpicture aria-hidden="true">
+            <source src="assets/video/hero.webm" type="video/webm" />
             <source src="assets/video/hero.mp4" type="video/mp4" />
-          </video>        </div>
+          </video>
+        </div>
         <div class="hero__badge">
           <strong>4.8</strong>
           <span class="stars" aria-hidden="true">★★★★★</span>
@@ -120,7 +129,7 @@
     <section class="section about" id="about">
       <div class="about__images">
         <figure class="about__img about__img--a parallax" data-speed="-0.06"><img src="assets/img/interior-night.webp" alt="Chaachi's interior with ornate pressed-tin ceiling and warm pendant lights" loading="lazy" /></figure>
-        <figure class="about__img about__img--b parallax" data-speed="0.08"><img src="assets/img/red-drink-dessert.webp" alt="Sparkling red drink and dessert on a wooden table" loading="lazy" /></figure>
+        <figure class="about__img about__img--b parallax" data-speed="0.08"><img src="assets/img/counter-sign.webp" alt="The Chaachi's counter with its carved name sign" loading="lazy" /></figure>
         <figure class="about__img about__img--c parallax" data-speed="-0.12"><img src="assets/img/friends-drinks.webp" alt="Friends sharing matcha and iced drinks around a table" loading="lazy" /></figure>
       </div>
       <div class="about__copy">
@@ -144,19 +153,19 @@
       </div>
       <div class="sig-grid">
         <article class="sig-card reveal tilt" style="--d:0s">
-          <img src="assets/img/friends-drinks.webp" alt="Matcha lattes in Chaachi's cups shared around a table" loading="lazy" />
-          <div class="sig-card__body"><span>Matcha</span><h3>Matcha w/ Strawberry Foam</h3><p>"Just as good, if not better, than the big competitors."</p><b>£5.25</b></div>
+          <img src="assets/img/blueberry-matcha-pour.webp" alt="Pouring blueberry milk over ice next to a jug of fresh matcha" loading="lazy" />
+          <div class="sig-card__body"><span>Matcha</span><h3>Matcha Lattes</h3><p>Blueberry, vanilla or strawberry foam. "Just as good, if not better, than the big competitors."</p><b>from £4.95</b></div>
         </article>
         <article class="sig-card reveal tilt" style="--d:.1s">
-          <img src="assets/img/biscoff-tiramisu-latte.webp" alt="Iced latte topped with biscoff crumble" loading="lazy" />
-          <div class="sig-card__body"><span>Iced</span><h3>Iced Spanish Latte</h3><p>"I literally bought two at 10pm on a Sunday. No regrets."</p><b>£4.95</b></div>
+          <img src="assets/img/biscoff-latte-hand.webp" alt="An iced latte with cream and biscoff crumble" loading="lazy" />
+          <div class="sig-card__body"><span>Iced</span><h3>Iced Lattes</h3><p>Spanish, pistachio &amp; biscoff. "I literally bought two at 10pm on a Sunday."</p><b>from £3.95</b></div>
         </article>
         <article class="sig-card reveal tilt" style="--d:.2s">
-          <img src="assets/img/cake-slice.webp" alt="A slice of homemade chocolate cake" loading="lazy" />
-          <div class="sig-card__body"><span>Sweet</span><h3>Chocolate Cake w/ Pistachio Kunafe</h3><p>"The Chocolate Kunafa Cake is unreal!"</p><b>£5.95</b></div>
+          <img src="assets/img/blackforest-cake.webp" alt="A slice of homemade blackforest cake with a cherry on top" loading="lazy" />
+          <div class="sig-card__body"><span>Sweet</span><h3>Homemade Cakes</h3><p>Kunafa, Basque, tiramisu &amp; more. "The Chocolate Kunafa Cake is unreal!"</p><b>from £5.95</b></div>
         </article>
         <article class="sig-card reveal tilt" style="--d:.3s">
-          <img src="assets/img/firecracker-chicken.webp" alt="Firecracker chicken with rice, today's special" loading="lazy" />
+          <img src="assets/img/special-plate.webp" alt="A special of the day with rice, a panini and a sparkling drink" loading="lazy" />
           <div class="sig-card__body"><span>Specials</span><h3>Dish of the Day</h3><p>"The creamy chicken, spinach pasta was out of this world."</p><b>from £5.50</b></div>
         </article>
       </div>
@@ -170,7 +179,15 @@
         <p class="section__sub reveal">All meat is HMC certified halal. Dairy alternatives available, just ask.</p>
       </div>
       <div class="menu__tabs reveal" role="tablist" id="menuTabs"></div>
-      <div class="menu__panel" id="menuPanel" role="tabpanel" aria-live="polite"></div>
+      <div class="menu__panel" id="menuPanel" role="tabpanel" tabindex="0"></div>
+      <div class="boards reveal">
+        <p class="eyebrow">See the boards</p>
+        <div class="boards__row">
+          <button class="board" type="button" data-lightbox="boards" data-src="assets/img/menu-board-drinks.webp" data-caption="Drinks menu board"><img src="assets/img/menu-board-drinks.webp" alt="Chaachi's drinks menu board" loading="lazy" /><span>Drinks</span></button>
+          <button class="board" type="button" data-lightbox="boards" data-src="assets/img/menu-board-matcha.webp" data-caption="Matcha, iced, frappe &amp; bubble tea board"><img src="assets/img/menu-board-matcha.webp" alt="Chaachi's matcha and iced drinks menu board" loading="lazy" /><span>Matcha &amp; Iced</span></button>
+          <button class="board" type="button" data-lightbox="boards" data-src="assets/img/menu-board-food.webp" data-caption="Savoury, specials &amp; sweet treats board"><img src="assets/img/menu-board-food.webp" alt="Chaachi's food and desserts menu board" loading="lazy" /><span>Food &amp; Sweet</span></button>
+        </div>
+      </div>
       <p class="menu__note reveal">*Specials are available on certain days, so ask at the till. Prices are taken from the in-café menu boards and may change.</p>
     </section>
 
@@ -181,16 +198,16 @@
         <h2 class="h2 reveal">Moments from <em>the café</em></h2>
       </div>
       <div class="gallery__rail" id="galleryRail">
-        <figure class="g-item"><img src="assets/img/late-night-pov.webp" alt="Night-time view into Chaachi's" loading="lazy" /></figure>
-        <figure class="g-item g-item--tall"><img src="assets/img/purple-pour.webp" alt="Pouring an ube iced latte" loading="lazy" /></figure>
-        <figure class="g-item"><img src="assets/img/cake-slice.webp" alt="Slice of homemade chocolate cake" loading="lazy" /></figure>
-        <figure class="g-item g-item--tall"><img src="assets/img/interior-guests.webp" alt="Guests at the counter under pendant lights" loading="lazy" /></figure>
-        <figure class="g-item"><img src="assets/img/red-drink-dessert.webp" alt="Sparkling red drink with dessert" loading="lazy" /></figure>
-        <figure class="g-item g-item--tall"><img src="assets/img/biscoff-latte.webp" alt="Biscoff latte in a Chaachi's cup" loading="lazy" /></figure>
-        <figure class="g-item"><img src="assets/img/service.webp" alt="Friendly table service" loading="lazy" /></figure>
-        <figure class="g-item g-item--tall"><img src="assets/img/sip-paint.webp" alt="Sip and paint event at Chaachi's" loading="lazy" /></figure>
-        <figure class="g-item"><img src="assets/img/blender.webp" alt="Blending a fresh berry drink" loading="lazy" /></figure>
-        <figure class="g-item g-item--tall"><img src="assets/img/storefront-night.webp" alt="Chaachi's illuminated shopfront at night" loading="lazy" /></figure>
+        <figure class="g-item g-item--tall"><img src="assets/img/sip-paint-room.webp" alt="Guests painting at easels during a Sip &amp; Paint night" loading="lazy" /></figure>
+        <figure class="g-item"><img src="assets/img/barista-counter.webp" alt="A smiling team member at the till under the pressed-tin wall" loading="lazy" /></figure>
+        <figure class="g-item g-item--tall"><img src="assets/img/dessert-counter.webp" alt="Fresh Oreo cheesecake and bakes on the dessert counter" loading="lazy" /></figure>
+        <figure class="g-item"><img src="assets/img/painting.webp" alt="A finished floral painting on an easel" loading="lazy" /></figure>
+        <figure class="g-item g-item--tall"><img src="assets/img/staff-smile.webp" alt="A cheerful team member behind the counter" loading="lazy" /></figure>
+        <figure class="g-item"><img src="assets/img/making-drink.webp" alt="Finishing an iced drink with whipped cream and biscoff" loading="lazy" /></figure>
+        <figure class="g-item g-item--tall"><img src="assets/img/pressed-tin-painting.webp" alt="Painting under the ornate pressed-tin walls" loading="lazy" /></figure>
+        <figure class="g-item"><img src="assets/img/service.webp" alt="Friendly table service with drinks" loading="lazy" /></figure>
+        <figure class="g-item g-item--tall"><img src="assets/img/easels-cafe.webp" alt="Easels set up across the café ahead of an event" loading="lazy" /></figure>
+        <figure class="g-item"><img src="assets/img/paint-night.webp" alt="Colourful canvases at the window during an event" loading="lazy" /></figure>
       </div>
       <p class="gallery__hint">Drag or scroll sideways to explore &rarr;</p>
     </section>
@@ -287,9 +304,9 @@
         <div class="chips reveal"><span>kunafe · 10</span><span>matcha · 16</span><span>pistachio tiramisu · 8</span><span>karak chai · 6</span></div>
       </div>
       <div class="reviews__wrap">
-        <button class="rv-nav rv-nav--prev" id="rvPrev" aria-label="Previous reviews">&larr;</button>
+        <button type="button" class="rv-nav rv-nav--prev" id="rvPrev" aria-label="Previous reviews">&larr;</button>
         <div class="reviews__track" id="reviewsTrack"></div>
-        <button class="rv-nav rv-nav--next" id="rvNext" aria-label="Next reviews">&rarr;</button>
+        <button type="button" class="rv-nav rv-nav--next" id="rvNext" aria-label="Next reviews">&rarr;</button>
       </div>
       <div class="reviews__ctas reveal">
         <a class="btn btn--ghost magnetic" target="_blank" rel="noopener" href="https://www.google.com/search?q=Chaachi%27s+Norbury&ludocid=8649485870763766648#lrd=0x487607aba24e7303:0x7809259290a27378,1,,,,">Read all reviews</a>
@@ -337,8 +354,8 @@
       </div>
       <form class="contact__form glass reveal" name="enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="enquiryForm" style="--d:.15s">
         <input type="hidden" name="form-name" value="enquiry" />
-        <p hidden><label>Don't fill this in: <input name="bot-field" /></label></p>
-        <div class="field"><input id="f-name" name="name" required placeholder=" " autocomplete="name" /><label for="f-name">Your name</label></div>
+        <p hidden><label>Don't fill this in: <input type="text" name="bot-field" /></label></p>
+        <div class="field"><input type="text" id="f-name" name="name" required placeholder=" " autocomplete="name" /><label for="f-name">Your name</label></div>
         <div class="field"><input id="f-email" name="email" type="email" required placeholder=" " autocomplete="email" /><label for="f-email">Email address</label></div>
         <div class="field">
           <select id="f-topic" name="topic">
@@ -369,8 +386,16 @@
     <p class="muted small">&copy; <span id="year"></span> Chaachi's Norbury. All meat is HMC.</p>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+    <button type="button" class="lightbox__close" id="lbClose" aria-label="Close image viewer">&times;</button>
+    <button type="button" class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Previous image">&larr;</button>
+    <figure class="lightbox__fig"><img id="lbImg" src="assets/img/logo-512.png" alt="" /><figcaption id="lbCap"></figcaption></figure>
+    <button type="button" class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Next image">&rarr;</button>
+  </div>
+
   <!-- CHAT WIDGET -->
-  <button class="chat-fab" id="chatFab" aria-label="Chat with Chaachi's" aria-expanded="false" aria-controls="chat">
+  <button type="button" class="chat-fab" id="chatFab" aria-label="Chat with Chaachi's" aria-expanded="false" aria-controls="chat">
     <img src="assets/img/logo-512.png" alt="" />
     <span class="chat-fab__ping"></span>
   </button>
@@ -378,12 +403,12 @@
     <header class="chat__head">
       <img src="assets/img/logo-512.png" alt="" />
       <div><b>Chaachi's</b><small id="chatStatus">Usually replies on Instagram</small></div>
-      <button class="chat__close" id="chatClose" aria-label="Close chat">×</button>
+      <button type="button" class="chat__close" id="chatClose" aria-label="Close chat">×</button>
     </header>
     <div class="chat__body" id="chatBody" aria-live="polite"></div>
     <div class="chat__chips" id="chatChips"></div>
     <form class="chat__input" id="chatInput" autocomplete="off">
-      <input id="chatText" placeholder="Ask about hours, menu, events…" aria-label="Type a message" />
+      <input type="text" id="chatText" placeholder="Ask about hours, menu, events…" aria-label="Type a message" />
       <button type="submit" aria-label="Send">➤</button>
     </form>
   </section>
