@@ -41,7 +41,7 @@ styles.css      all styling and responsive rules
 script.js       menu, Instagram, reviews, hours, chat and motion
 netlify.toml    publish settings + headers
 assets/img      photos (from @chaachis.norbury), menu boards, logo, icons
-assets/video    background reel (web-optimised) + poster
+assets/video    background reel: hero.webm (original 1080p VP9 stream) + hero.mp4 (1080p H.264 fallback) + poster
 ```
 
 ## Content sources
