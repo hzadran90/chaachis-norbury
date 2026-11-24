@@ -20,6 +20,7 @@ const CONFIG = {
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 /* ---------------- Menu (from the in-café menu boards) ---------------- */
 const MENU = [
@@ -83,10 +84,10 @@ const MENU = [
 function renderMenu() {
   const tabs = $("#menuTabs"), panel = $("#menuPanel");
   tabs.innerHTML = MENU.map((c, i) =>
-    `<button class="menu__tab" role="tab" id="tab-${c.id}" aria-selected="${i === 0}" data-id="${c.id}">${c.label}</button>`).join("");
+    `<button class="menu__tab" role="tab" id="tab-${c.id}" aria-controls="menuPanel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}" data-id="${c.id}">${c.label}</button>`).join("");
   const show = (id) => {
     const cat = MENU.find((c) => c.id === id);
-    $$(".menu__tab", tabs).forEach((t) => t.setAttribute("aria-selected", t.dataset.id === id));
+    $$(".menu__tab", tabs).forEach((t) => { const on = t.dataset.id === id; t.setAttribute("aria-selected", on); t.tabIndex = on ? 0 : -1; });
     panel.setAttribute("aria-labelledby", `tab-${id}`);
     panel.innerHTML = cat.groups.map((g) => `
       <div class="menu-group">
@@ -175,7 +176,7 @@ function renderReviews() {
   // gentle auto-advance, paused on hover/touch
   let paused = false;
   ["mouseenter", "touchstart", "focusin"].forEach((ev) => track.addEventListener(ev, () => (paused = true), { passive: true }));
-  ["mouseleave"].forEach((ev) => track.addEventListener(ev, () => (paused = false)));
+  let resume; const unpause = () => { clearTimeout(resume); resume = setTimeout(() => (paused = false), 4000); };
   if (!reduceMotion) setInterval(() => {
     if (paused || document.hidden) return;
     const end = track.scrollLeft + track.clientWidth >= track.scrollWidth - 10;
@@ -273,18 +274,18 @@ function initChat() {
   const igActions = [{ label: "💬 DM on Instagram", href: CONFIG.INSTAGRAM_DM, primary: true }, { label: "Email enquiry", onClick: () => showEmailForm() }];
 
   const intents = [
-    { k: /hour|open|close|time|today|tonight|late|when/i, a: () => botSay(`We're open <b>every day from 3.30pm</b>:\nMon–Thu · 3.30pm–10.30pm\nFri & Sat · 3.30pm–12.30am\nSun · 3.30pm–10.30pm\n\nRight now: <b>${openStatus().text}</b>`, [{ label: "See full hours", href: "#visit" }]) },
-    { k: /menu|price|cost|eat|food|drink|how much/i, a: () => botSay("Our menu has speciality coffee, karak chai, matcha, iced drinks, frappes, bubble tea, homemade savoury bites, specials and sweet treats. Coffees start from £3.00.", [{ label: "Open the menu", href: "#menu", primary: true }]) },
+    { k: /(halal|\bhmc\b|\bmeat\b|vegan|vegetarian|allerg|dairy|gluten|\bnuts?\b|lactose)/i, a: () => botSay("All our meat is <b>HMC certified halal</b>. We have vegetarian options and dairy alternatives (soya, almond, oat). For allergens, please ask at the till or message us.", igActions) },
+    { k: /\b(hours?|open|opening|close[sd]?|closing|times?|today|tonight|late|when)\b/i, a: () => botSay(`We're open <b>every day from 3.30pm</b>:\nMon–Thu · 3.30pm–10.30pm\nFri & Sat · 3.30pm–12.30am\nSun · 3.30pm–10.30pm\n\nRight now: <b>${openStatus().text}</b>`, [{ label: "See full hours", href: "#visit" }]) },
     { k: /matcha/i, a: () => botSay("Our matchas are a customer favourite 🍵 Blueberry or Vanilla (milk/oat) £4.95, and the signature <b>Matcha w/ Strawberry Foam</b> £5.25. Ask about the Birthday Cake Matcha too!", [{ label: "Matcha menu", href: "#menu" }]) },
-    { k: /chai|karak|tea/i, a: () => botSay("Karak Chai, Mint Tea and Nar Çay (pomegranate tea, sourced from Turkey) are all £3.25 ☕") },
-    { k: /cake|dessert|sweet|tiramisu|kunaf|cheesecake/i, a: () => botSay("Everything sweet is homemade by Chaachi: Pistachio Tiramisu £6.45, Chocolate Cake w/ Pistachio Kunafe £5.95, Burnt Basque Cheesecake £6.95 and more. Want a whole cake? Send us an enquiry!", [{ label: "Order a cake", onClick: () => showEmailForm("Whole cake order") }]) },
-    { k: /halal|hmc|meat|vegan|vegetarian|allerg|dairy|gluten|nut/i, a: () => botSay("All our meat is <b>HMC certified halal</b>. We have vegetarian options and dairy alternatives (soya, almond, oat). For allergens, please ask at the till or message us.", igActions) },
-    { k: /where|address|location|direction|park|station|find/i, a: () => botSay("You'll find us at <b>1583 London Rd, Norbury, London SW16 4AA</b>. There's free street parking nearby, and we're a short walk from Norbury station.", [{ label: "Get directions", href: CONFIG.DIRECTIONS, primary: true }]) },
-    { k: /event|paint|party|book|hire|reserv|birthday|group/i, a: () => botSay("Chaachi's events have officially begun 🎨 We host Sip & Paint nights and more. We're walk-in only for normal visits, but for events or private hire just send us a message!", [{ label: "Enquire about events", onClick: () => showEmailForm("Events & private hire"), primary: true }, { label: "DM on Instagram", href: CONFIG.INSTAGRAM_DM }]) },
-    { k: /insta|dm|social|tiktok|follow/i, a: () => botSay("Follow us on Instagram <b>@chaachis.norbury</b> for new flavours, daily specials and events.", [{ label: "Open Instagram", href: CONFIG.INSTAGRAM, primary: true }, { label: "Send a DM", href: CONFIG.INSTAGRAM_DM }]) },
-    { k: /email|contact|phone|call|message|speak|human|staff|query|question/i, a: () => botSay("You can send us a message right here and it'll go straight to the Chaachi's team. For the fastest reply, DM us on Instagram.", igActions) },
-    { k: /hi|hello|salaam|salam|hey|assalam/i, a: () => botSay("Wa alaikum assalam & hello! 👋 How can we help today?") },
-    { k: /thank|cheers|jazak/i, a: () => botSay("You're very welcome! Hope to see you at Chaachi's soon 🤍") },
+    { k: /\b(chai|karak|teas?|nar|pomegranate)\b/i, a: () => botSay("Karak Chai, Mint Tea and Nar Çay (pomegranate tea, sourced from Turkey) are all £3.25 ☕") },
+    { k: /(cakes?\b|desserts?|sweets?\b|tiramisu|kunaf|cheesecake|brownie|cookie)/i, a: () => botSay("Everything sweet is homemade by Chaachi: Pistachio Tiramisu £6.45, Chocolate Cake w/ Pistachio Kunafe £5.95, Burnt Basque Cheesecake £6.95 and more. Want a whole cake? Send us an enquiry!", [{ label: "Order a cake", onClick: () => showEmailForm("Whole cake order") }]) },
+    { k: /\b(where|address|location|directions?|park|parking|station|find you|postcode)\b/i, a: () => botSay("You'll find us at <b>1583 London Rd, Norbury, London SW16 4AA</b>. There's free street parking nearby, and we're a short walk from Norbury station.", [{ label: "Get directions", href: CONFIG.DIRECTIONS, primary: true }]) },
+    { k: /(events?\b|paint|part(y|ies)|\bbook|\bhire\b|reserv|birthday|\bgroups?\b)/i, a: () => botSay("Chaachi's events have officially begun 🎨 We host Sip & Paint nights and more. We're walk-in only for normal visits, but for events or private hire just send us a message!", [{ label: "Enquire about events", onClick: () => showEmailForm("Events & private hire"), primary: true }, { label: "DM on Instagram", href: CONFIG.INSTAGRAM_DM }]) },
+    { k: /(insta|\bdm\b|social|tiktok|follow)/i, a: () => botSay("Follow us on Instagram <b>@chaachis.norbury</b> for new flavours, daily specials and events.", [{ label: "Open Instagram", href: CONFIG.INSTAGRAM, primary: true }, { label: "Send a DM", href: CONFIG.INSTAGRAM_DM }]) },
+    { k: /\b(e-?mail|contact|phone|call|message|speak|human|staff|quer(y|ies)|question|enquir\w*)\b/i, a: () => botSay("You can send us a message right here and it'll go straight to the Chaachi's team. For the fastest reply, DM us on Instagram.", igActions) },
+    { k: /\b(menu|prices?|costs?|eat|food|drinks?|how much)\b/i, a: () => botSay("Our menu has speciality coffee, karak chai, matcha, iced drinks, frappes, bubble tea, homemade savoury bites, specials and sweet treats. Coffees start from £3.00.", [{ label: "Open the menu", href: "#menu", primary: true }]) },
+    { k: /\b(hi|hiya|hello|hey|salaam|salam|assalam\w*|asalam\w*)\b/i, a: () => botSay("Wa alaikum assalam & hello! 👋 How can we help today?") },
+    { k: /(thank|cheers|jazak)/i, a: () => botSay("You're very welcome! Hope to see you at Chaachi's soon 🤍") },
   ];
 
   const reply = (msg) => {
@@ -307,8 +308,8 @@ function initChat() {
       const btn = f.querySelector("button"); btn.disabled = true; btn.textContent = "Sending…";
       try {
         await sendEnquiry(data);
-        f.remove(); add(`<b>Message sent ✓</b>\n${data.message.replace(/</g, "&lt;")}`, "me");
-        botSay(`Thank you, ${data.name.split(" ")[0].replace(/</g, "&lt;")}! The team will reply to ${data.email.replace(/</g, "&lt;")} soon. Anything else?`);
+        f.remove(); add(`<b>Message sent ✓</b>\n${escapeHtml(data.message)}`, "me");
+        botSay(`Thank you, ${escapeHtml(data.name.trim().split(/\s+/)[0])}! The team will reply to ${escapeHtml(data.email)} soon. Anything else?`);
       } catch {
         btn.disabled = false; btn.textContent = "Send to Chaachi's";
         const m = mailtoFor(data);
@@ -329,7 +330,7 @@ function initChat() {
   });
   input.addEventListener("submit", (e) => {
     e.preventDefault(); const v = text.value.trim(); if (!v) return;
-    add(v.replace(/</g, "&lt;"), "me"); text.value = ""; reply(v);
+    add(escapeHtml(v), "me"); text.value = ""; reply(v);
   });
 
   function toggle(open = chat.hidden) {
@@ -393,22 +394,77 @@ function initMotion() {
   });
 }
 
-/* ---------------- Gallery drag-to-scroll ---------------- */
+/* ---------------- Gallery drag-to-scroll (mouse) ---------------- */
+let galleryDragged = false;
 function initGallery() {
   const rail = $("#galleryRail"); let down = false, sx = 0, sl = 0;
-  rail.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") return; down = true; sx = e.clientX; sl = rail.scrollLeft; rail.classList.add("dragging"); rail.setPointerCapture(e.pointerId); });
-  rail.addEventListener("pointermove", (e) => { if (down) rail.scrollLeft = sl - (e.clientX - sx) * 1.3; });
-  ["pointerup", "pointercancel"].forEach((ev) => rail.addEventListener(ev, () => { down = false; rail.classList.remove("dragging"); }));
-  rail.addEventListener("wheel", (e) => { if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && rail.scrollWidth > rail.clientWidth) { const atEnd = (e.deltaY > 0 && rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 2) || (e.deltaY < 0 && rail.scrollLeft <= 0); if (!atEnd) { e.preventDefault(); rail.scrollLeft += e.deltaY; } } }, { passive: false });
+  rail.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse" || e.button !== 0) return; down = true; galleryDragged = false; sx = e.clientX; sl = rail.scrollLeft; });
+  rail.addEventListener("pointermove", (e) => {
+    if (!down) return;
+    const dx = e.clientX - sx;
+    if (!galleryDragged && Math.abs(dx) > 6) { galleryDragged = true; rail.classList.add("dragging"); rail.setPointerCapture(e.pointerId); }
+    if (galleryDragged) rail.scrollLeft = sl - dx * 1.3;
+  });
+  ["pointerup", "pointercancel", "lostpointercapture"].forEach((ev) => rail.addEventListener(ev, () => { down = false; rail.classList.remove("dragging"); }));
+  rail.addEventListener("dragstart", (e) => e.preventDefault());
 }
 
-/* ---------------- Background video resilience ---------------- */
+/* ---------------- Lightbox (gallery + menu boards) ---------------- */
+function initLightbox() {
+  const lb = $("#lightbox"), img = $("#lbImg"), cap = $("#lbCap");
+  let items = [], idx = 0, lastFocus = null;
+  const show = (i) => {
+    idx = (i + items.length) % items.length;
+    const it = items[idx];
+    img.src = it.src; img.alt = it.alt; cap.textContent = `${it.caption}  ·  ${idx + 1} / ${items.length}`;
+    img.style.animation = "none"; void img.offsetWidth; img.style.animation = "";
+  };
+  const open = (list, i) => {
+    items = list; lastFocus = document.activeElement;
+    lb.hidden = false; document.body.style.overflow = "hidden"; show(i); $("#lbClose").focus();
+  };
+  const close = () => { lb.hidden = true; document.body.style.overflow = ""; img.removeAttribute("src"); lastFocus?.focus(); };
+
+  const galleryItems = () => $$("#galleryRail .g-item img").map((el) => ({ src: el.currentSrc || el.src, alt: el.alt, caption: el.alt }));
+  $$("#galleryRail .g-item").forEach((fig, i) => {
+    fig.tabIndex = 0; fig.setAttribute("role", "button"); fig.setAttribute("aria-label", `View photo: ${fig.querySelector("img").alt}`);
+    fig.addEventListener("click", () => { if (galleryDragged) { galleryDragged = false; return; } open(galleryItems(), i); });
+    fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(galleryItems(), i); } });
+  });
+  const boards = $$("[data-lightbox='boards']");
+  const boardItems = boards.map((b) => ({ src: b.dataset.src, alt: b.querySelector("img").alt, caption: b.dataset.caption }));
+  boards.forEach((b, i) => b.addEventListener("click", () => open(boardItems, i)));
+
+  $("#lbClose").addEventListener("click", close);
+  $("#lbPrev").addEventListener("click", () => show(idx - 1));
+  $("#lbNext").addEventListener("click", () => show(idx + 1));
+  lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+  document.addEventListener("keydown", (e) => {
+    if (lb.hidden) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowRight") show(idx + 1);
+    else if (e.key === "ArrowLeft") show(idx - 1);
+    else if (e.key === "Tab") { // keep focus inside the dialog
+      const f = $$("button", lb); const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+  let tx = 0;
+  lb.addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", (e) => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1)); }, { passive: true });
+}
+
+/* ---------------- Video resilience ---------------- */
 function initVideo() {
-  const v = $("#bgVideo");
-  const play = () => v.play().catch(() => {});
+  const vids = [$("#bgVideo"), $("#heroVideo")].filter(Boolean);
+  const play = () => vids.forEach((v) => { v.muted = true; v.play().catch(() => {}); });
   play();
   document.addEventListener("visibilitychange", () => { if (!document.hidden) play(); });
-  ["touchstart", "click"].forEach((ev) => document.addEventListener(ev, play, { once: true, passive: true }));
+  ["touchstart", "click", "scroll"].forEach((ev) => window.addEventListener(ev, play, { once: true, passive: true }));
+  // keep the two copies in step so the hero and background feel like one film
+  const [bg, hero] = vids;
+  if (bg && hero) setInterval(() => { if (!bg.paused && !hero.paused && Math.abs(bg.currentTime - hero.currentTime) > 0.35) bg.currentTime = hero.currentTime; }, 3000);
 }
 
 /* ---------------- Boot ---------------- */
@@ -416,7 +472,7 @@ document.body.classList.add("is-loading");
 document.addEventListener("DOMContentLoaded", () => {
   $("#year").textContent = new Date().getFullYear();
   renderMenu(); renderInstagram(); renderReviews(); renderStatus(); setInterval(renderStatus, 60000);
-  initContactForm(); initChat(); initMotion(); initGallery(); initVideo();
+  initContactForm(); initChat(); initMotion(); initGallery(); initLightbox(); initVideo();
 });
 window.addEventListener("load", () => {
   setTimeout(() => { $("#loader").classList.add("done"); document.body.classList.remove("is-loading"); }, reduceMotion ? 0 : 900);
