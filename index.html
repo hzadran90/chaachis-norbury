@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Chaachi's Norbury — Family-run Halal Café</title>
+  <meta name="description" content="Chaachi's — a family-run halal café at 1583 London Rd, Norbury. Homemade sweet treats, savoury bites, karak chai, matcha and speciality hot & cold drinks, open late." />
+  <meta name="theme-color" content="#0d0b09" />
+  <meta property="og:title" content="Chaachi's Norbury — Family-run Halal Café" />
+  <meta property="og:description" content="Homemade sweet treats, savoury bites & speciality drinks. Open late, 7 days a week." />
+  <meta property="og:image" content="assets/img/storefront-night.webp" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Chaachi's",
+    "image": "assets/img/storefront-night.webp",
+    "servesCuisine": ["Pakistani", "British", "Desserts", "Coffee", "Tea"],
+    "priceRange": "££",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1583 London Rd",
+      "addressLocality": "Norbury, London",
+      "postalCode": "SW16 4AA",
+      "addressCountry": "GB"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 51.4131126, "longitude": -0.1245526 },
+    "sameAs": ["https://www.instagram.com/chaachis.norbury/"],
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "118" },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Sunday"], "opens": "15:30", "closes": "22:30" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday","Saturday"], "opens": "15:30", "closes": "00:30" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Intro loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <img src="assets/img/logo-512.png" alt="" class="loader__logo" />
+    <span class="loader__word">Chaachi's</span>
+  </div>
+
+  <!-- Fixed background video — plays the whole time the site is used -->
+  <div class="bg-video" aria-hidden="true">
+    <video id="bgVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/poster.jpg">
+      <source src="assets/video/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="bg-video__veil"></div>
+    <div class="bg-video__grain"></div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__brand" aria-label="Chaachi's — back to top">
+      <img src="assets/img/logo-512.png" alt="" width="40" height="40" />
+      <span>Chaachi's</span>
+    </a>
+    <nav class="nav__links" id="navLinks" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#story">Story</a>
+      <a href="#instagram">Instagram</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Visit</a>
+      <a href="#contact" class="nav__cta">Get in touch</a>
+    </nav>
+    <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__text">
+        <p class="eyebrow reveal">Family run &middot; حلال &middot; Norbury, South London</p>
+        <h1 class="hero__title" aria-label="Chaachi's">
+          <span class="split">Chaachi's</span>
+        </h1>
+        <p class="hero__lede reveal" style="--d:.2s">Homemade sweet treats, savoury bites &amp; speciality hot and cold drinks, served late in a café that feels like home.</p>
+        <div class="hero__status reveal" style="--d:.3s">
+          <span class="dot" id="statusDot"></span>
+          <span id="statusText">Checking today's hours…</span>
+        </div>
+        <div class="hero__ctas reveal" style="--d:.4s">
+          <a href="#menu" class="btn btn--gold magnetic">Explore the menu</a>
+          <a href="#visit" class="btn btn--ghost magnetic">Find us</a>
+        </div>
+      </div>
+      <div class="hero__media reveal" style="--d:.25s">
+        <div class="arch">
+          <video autoplay muted loop playsinline preload="metadata" poster="assets/video/poster.jpg" aria-label="A look inside Chaachi's at night">
+            <source src="assets/video/hero.mp4" type="video/mp4" />
+          </video>        </div>
+        <div class="hero__badge">
+          <strong>4.8</strong>
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <small>118 Google reviews</small>
+        </div>
+      </div>
+      <a href="#about" class="scroll-cue" aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Karak Chai</span><i>✦</i><span>Strawberry Foam Matcha</span><i>✦</i><span>Iced Spanish Latte</span><i>✦</i><span>Pistachio Tiramisu</span><i>✦</i><span>Chocolate Kunafa Cake</span><i>✦</i><span>Burnt Basque Cheesecake</span><i>✦</i><span>Shepherd's Pie</span><i>✦</i><span>Nar Çay</span><i>✦</i>
+        <span>Karak Chai</span><i>✦</i><span>Strawberry Foam Matcha</span><i>✦</i><span>Iced Spanish Latte</span><i>✦</i><span>Pistachio Tiramisu</span><i>✦</i><span>Chocolate Kunafa Cake</span><i>✦</i><span>Burnt Basque Cheesecake</span><i>✦</i><span>Shepherd's Pie</span><i>✦</i><span>Nar Çay</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="section about" id="about">
+      <div class="about__images">
+        <figure class="about__img about__img--a parallax" data-speed="-0.06"><img src="assets/img/interior-night.webp" alt="Chaachi's interior with ornate pressed-tin ceiling and warm pendant lights" loading="lazy" /></figure>
+        <figure class="about__img about__img--b parallax" data-speed="0.08"><img src="assets/img/red-drink-dessert.webp" alt="Sparkling red drink and dessert on a wooden table" loading="lazy" /></figure>
+        <figure class="about__img about__img--c parallax" data-speed="-0.12"><img src="assets/img/friends-drinks.webp" alt="Friends sharing matcha and iced drinks around a table" loading="lazy" /></figure>
+      </div>
+      <div class="about__copy">
+        <p class="eyebrow reveal">Our home is your home</p>
+        <h2 class="h2 reveal">A little piece of Lahore,<br /><em>on London Road.</em></h2>
+        <p class="reveal">Step through the door and the mud-washed walls, pressed-tin ceilings and mandala coasters take you somewhere else. Chaachi's is a family-run café where everything is made fresh by Chaachi herself, from the kunafa cake and tiramisu to the pasties and the dish of the day.</p>
+        <p class="reveal">The walls tell the story of the neighbourhood through generations of photographs taken in Norbury. Come for a karak chai, stay for the conversation.</p>
+        <ul class="pillars">
+          <li class="reveal" style="--d:.05s"><strong>100%</strong><span>HMC halal meat</span></li>
+          <li class="reveal" style="--d:.15s"><strong>Fresh</strong><span>Homemade daily</span></li>
+          <li class="reveal" style="--d:.25s"><strong>Late</strong><span>Till 12.30am Fri &amp; Sat</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SIGNATURES -->
+    <section class="section signatures">
+      <div class="section__head">
+        <p class="eyebrow reveal">Must-try</p>
+        <h2 class="h2 reveal">The ones everyone <em>raves about</em></h2>
+      </div>
+      <div class="sig-grid">
+        <article class="sig-card reveal tilt" style="--d:0s">
+          <img src="assets/img/friends-drinks.webp" alt="Matcha lattes in Chaachi's cups shared around a table" loading="lazy" />
+          <div class="sig-card__body"><span>Matcha</span><h3>Matcha w/ Strawberry Foam</h3><p>"Just as good, if not better, than the big competitors."</p><b>£5.25</b></div>
+        </article>
+        <article class="sig-card reveal tilt" style="--d:.1s">
+          <img src="assets/img/biscoff-tiramisu-latte.webp" alt="Iced latte topped with biscoff crumble" loading="lazy" />
+          <div class="sig-card__body"><span>Iced</span><h3>Iced Spanish Latte</h3><p>"I literally bought two at 10pm on a Sunday. No regrets."</p><b>£4.95</b></div>
+        </article>
+        <article class="sig-card reveal tilt" style="--d:.2s">
+          <img src="assets/img/cake-slice.webp" alt="A slice of homemade chocolate cake" loading="lazy" />
+          <div class="sig-card__body"><span>Sweet</span><h3>Chocolate Cake w/ Pistachio Kunafe</h3><p>"The Chocolate Kunafa Cake is unreal!"</p><b>£5.95</b></div>
+        </article>
+        <article class="sig-card reveal tilt" style="--d:.3s">
+          <img src="assets/img/firecracker-chicken.webp" alt="Firecracker chicken with rice, today's special" loading="lazy" />
+          <div class="sig-card__body"><span>Specials</span><h3>Dish of the Day</h3><p>"The creamy chicken, spinach pasta was out of this world."</p><b>from £5.50</b></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="section menu" id="menu">
+      <div class="section__head">
+        <p class="eyebrow reveal">The menu</p>
+        <h2 class="h2 reveal">Poured, baked &amp; <em>made by Chaachi</em></h2>
+        <p class="section__sub reveal">All meat is HMC certified halal. Dairy alternatives available, just ask.</p>
+      </div>
+      <div class="menu__tabs reveal" role="tablist" id="menuTabs"></div>
+      <div class="menu__panel" id="menuPanel" role="tabpanel" aria-live="polite"></div>
+      <p class="menu__note reveal">*Specials are available on certain days, so ask at the till. Prices are taken from the in-café menu boards and may change.</p>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section gallery" id="gallery">
+      <div class="section__head">
+        <p class="eyebrow reveal">Inside Chaachi's</p>
+        <h2 class="h2 reveal">Moments from <em>the café</em></h2>
+      </div>
+      <div class="gallery__rail" id="galleryRail">
+        <figure class="g-item"><img src="assets/img/late-night-pov.webp" alt="Night-time view into Chaachi's" loading="lazy" /></figure>
+        <figure class="g-item g-item--tall"><img src="assets/img/purple-pour.webp" alt="Pouring an ube iced latte" loading="lazy" /></figure>
+        <figure class="g-item"><img src="assets/img/cake-slice.webp" alt="Slice of homemade chocolate cake" loading="lazy" /></figure>
+        <figure class="g-item g-item--tall"><img src="assets/img/interior-guests.webp" alt="Guests at the counter under pendant lights" loading="lazy" /></figure>
+        <figure class="g-item"><img src="assets/img/red-drink-dessert.webp" alt="Sparkling red drink with dessert" loading="lazy" /></figure>
+        <figure class="g-item g-item--tall"><img src="assets/img/biscoff-latte.webp" alt="Biscoff latte in a Chaachi's cup" loading="lazy" /></figure>
+        <figure class="g-item"><img src="assets/img/service.webp" alt="Friendly table service" loading="lazy" /></figure>
+        <figure class="g-item g-item--tall"><img src="assets/img/sip-paint.webp" alt="Sip and paint event at Chaachi's" loading="lazy" /></figure>
+        <figure class="g-item"><img src="assets/img/blender.webp" alt="Blending a fresh berry drink" loading="lazy" /></figure>
+        <figure class="g-item g-item--tall"><img src="assets/img/storefront-night.webp" alt="Chaachi's illuminated shopfront at night" loading="lazy" /></figure>
+      </div>
+      <p class="gallery__hint">Drag or scroll sideways to explore &rarr;</p>
+    </section>
+
+    <!-- STORY TIMELINE -->
+    <section class="section story" id="story">
+      <div class="section__head">
+        <p class="eyebrow reveal">Our story</p>
+        <h2 class="h2 reveal">From soft opening <em>to South London's new favourite</em></h2>
+      </div>
+      <ol class="timeline" id="timeline">
+        <li class="t-item reveal">
+          <span class="t-date">2025</span>
+          <div class="t-card"><h3>The doors open</h3><p>A soft opening weekend where guests "practically met the whole family". Pomegranate tea from Turkey, Spanish lattes and shepherd's pie win hearts from day one.</p></div>
+        </li>
+        <li class="t-item reveal">
+          <span class="t-date">Summer 2026</span>
+          <div class="t-card"><h3>Back &amp; better</h3><p>After a short break Chaachi's reopens to a queue of regulars, with peach matcha, iced Spanish latte with cold foam and new hot dishes of the day.</p></div>
+        </li>
+        <li class="t-item reveal">
+          <span class="t-date">Sept 2026</span>
+          <div class="t-card"><h3>New desserts &amp; flavours</h3><p>Blackforest and Oreo cheesecakes join the counter, alongside a Birthday Cake Matcha and Biscoff Latte for team matcha and team coffee.</p></div>
+        </li>
+        <li class="t-item reveal">
+          <span class="t-date">5 Oct 2026</span>
+          <div class="t-card"><h3>Open earlier, every day</h3><p>Doors now open at 3.30pm daily, Wednesdays included, giving you an extra day of Chaachi's every week.</p></div>
+        </li>
+        <li class="t-item reveal">
+          <span class="t-date">15 Nov 2026</span>
+          <div class="t-card"><h3>Chaachi's Events begin</h3><p>The first Sip &amp; Paint sells out and raises money for a lovely cause. South London has a new event space, and the next get-together is already being planned.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- INSTAGRAM PHONE -->
+    <section class="section insta" id="instagram">
+      <div class="insta__copy">
+        <p class="eyebrow reveal">@chaachis.norbury</p>
+        <h2 class="h2 reveal">Latest from <em>our Instagram</em></h2>
+        <p class="reveal">New flavours, specials of the day and event announcements land on Instagram first. Scroll the feed on the phone, tap any post to open it, and follow along so you never miss a sip &amp; paint.</p>
+        <div class="insta__ctas reveal">
+          <a class="btn btn--gold magnetic" href="https://www.instagram.com/chaachis.norbury/" target="_blank" rel="noopener">Follow on Instagram</a>
+          <a class="btn btn--ghost magnetic" href="https://ig.me/m/chaachis.norbury" target="_blank" rel="noopener">Send a DM</a>
+        </div>
+      </div>
+      <div class="phone-wrap reveal" style="--d:.15s">
+        <div class="phone" id="phone">
+          <span class="phone__btn phone__btn--action"></span>
+          <span class="phone__btn phone__btn--vol1"></span>
+          <span class="phone__btn phone__btn--vol2"></span>
+          <span class="phone__btn phone__btn--power"></span>
+          <span class="phone__btn phone__btn--camera"></span>
+          <div class="phone__screen">
+            <div class="phone__island"></div>
+            <div class="ig-status"><span id="phoneClock">9:41</span><span class="ig-status__icons">
+              <svg viewBox="0 0 18 12" width="17" height="11" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+              <svg viewBox="0 0 16 12" width="15" height="11" aria-hidden="true"><path d="M8 2.4c2.3 0 4.4.9 6 2.4l1.1-1.2A10 10 0 0 0 8 .7 10 10 0 0 0 .9 3.6L2 4.8a8.5 8.5 0 0 1 6-2.4Zm0 3.4c1.4 0 2.6.5 3.6 1.4l1.1-1.2A7 7 0 0 0 8 4.1 7 7 0 0 0 3.3 6l1.1 1.2c1-.9 2.2-1.4 3.6-1.4Zm0 3.4c.6 0 1.1.2 1.5.6L8 11.4 6.5 9.8c.4-.4.9-.6 1.5-.6Z"/></svg>
+              <span class="batt"><i></i></span></span></div>
+            <div class="ig" id="igFeed">
+              <div class="ig-top"><strong>chaachis.norbury</strong><span>⋯</span></div>
+              <div class="ig-profile">
+                <div class="ig-avatar"><img src="assets/img/logo-512.png" alt="Chaachi's profile picture" /></div>
+                <div class="ig-stats"><div><b id="igPosts">11</b><span>posts</span></div><div><b>1,305</b><span>followers</span></div><div><b>6</b><span>following</span></div></div>
+              </div>
+              <div class="ig-bio">
+                <b>Chaachi’s Norbury</b>
+                <p>🧁🥮 Homemade sweet treats &amp; savoury bites<br />☕️🍵 Speciality hot &amp; cold drinks<br />🌟 Family run, حلال<br />📍 1583 London Rd, Norbury</p>
+              </div>
+              <div class="ig-actions"><a href="https://www.instagram.com/chaachis.norbury/" target="_blank" rel="noopener">Follow</a><a href="https://ig.me/m/chaachis.norbury" target="_blank" rel="noopener" class="alt">Message</a></div>
+              <div class="ig-highlights">
+                <div><span><img src="assets/img/hours.webp" alt="" /></span><small>Open hours</small></div>
+                <div><span><img src="assets/img/biscoff-latte.webp" alt="" /></span><small>Food &amp; Drinks</small></div>
+                <div><span><img src="assets/img/friends-drinks.webp" alt="" /></span><small>Customer 💗</small></div>
+              </div>
+              <div class="ig-tabs"><span class="on">▦</span><span>▶</span><span>☺</span></div>
+              <div class="ig-grid" id="igGrid"></div>
+            </div>
+            <div class="phone__home"></div>
+          </div>
+        </div>
+        <div class="phone-glow"></div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="section reviews" id="reviews">
+      <div class="section__head">
+        <p class="eyebrow reveal">Kind words</p>
+        <h2 class="h2 reveal">Rated <em>4.8 out of 5</em> on Google</h2>
+        <div class="rating reveal">
+          <span class="rating__num" data-count="4.8">4.8</span>
+          <div><span class="stars stars--lg">★★★★★</span><small>Based on 118 Google reviews</small></div>
+        </div>
+        <div class="chips reveal"><span>kunafe · 10</span><span>matcha · 16</span><span>pistachio tiramisu · 8</span><span>karak chai · 6</span></div>
+      </div>
+      <div class="reviews__wrap">
+        <button class="rv-nav rv-nav--prev" id="rvPrev" aria-label="Previous reviews">&larr;</button>
+        <div class="reviews__track" id="reviewsTrack"></div>
+        <button class="rv-nav rv-nav--next" id="rvNext" aria-label="Next reviews">&rarr;</button>
+      </div>
+      <div class="reviews__ctas reveal">
+        <a class="btn btn--ghost magnetic" target="_blank" rel="noopener" href="https://www.google.com/search?q=Chaachi%27s+Norbury&ludocid=8649485870763766648#lrd=0x487607aba24e7303:0x7809259290a27378,1,,,,">Read all reviews</a>
+        <a class="btn btn--gold magnetic" target="_blank" rel="noopener" href="https://www.google.com/search?q=Chaachi%27s+Norbury&ludocid=8649485870763766648#lrd=0x487607aba24e7303:0x7809259290a27378,3,,,,">Leave us a review</a>
+      </div>
+    </section>
+
+    <!-- VISIT / HOURS -->
+    <section class="section visit" id="visit">
+      <div class="visit__card glass reveal">
+        <p class="eyebrow">Opening hours</p>
+        <h2 class="h2">Open late, <em>seven days</em></h2>
+        <ul class="hours" id="hoursList">
+          <li data-days="1,2,3,4"><span>Monday – Thursday</span><b>3.30pm – 10.30pm</b></li>
+          <li data-days="5,6"><span>Friday &amp; Saturday</span><b>3.30pm – 12.30am</b></li>
+          <li data-days="0"><span>Sunday</span><b>3.30pm – 10.30pm</b></li>
+        </ul>
+        <div class="visit__addr">
+          <p class="eyebrow">Find us</p>
+          <address>1583 London Rd<br />Norbury, London<br />SW16 4AA</address>
+          <p class="muted">Free street parking nearby. Walk-ins welcome, no reservations needed. A few minutes' walk from Norbury station.</p>
+          <div class="visit__ctas">
+            <a class="btn btn--gold magnetic" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Chaachi%27s%2C+1583+London+Rd%2C+Norbury%2C+London+SW16+4AA">Get directions</a>
+            <a class="btn btn--ghost magnetic" target="_blank" rel="noopener" href="https://www.instagram.com/chaachis.norbury/">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div class="visit__map reveal" style="--d:.15s">
+        <iframe title="Map showing Chaachi's at 1583 London Rd, Norbury" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Chaachi%27s,+1583+London+Rd,+Norbury,+London+SW16+4AA&z=16&output=embed"></iframe>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section contact" id="contact">
+      <div class="contact__copy">
+        <p class="eyebrow reveal">Get in touch</p>
+        <h2 class="h2 reveal">Events, cakes, <em>or just hello</em></h2>
+        <p class="reveal">Planning a get-together, ordering a whole cake or asking about allergens? Send us a message and the Chaachi's family will get back to you. For the quickest reply, DM us on Instagram.</p>
+        <ul class="contact__list reveal">
+          <li><span>Instagram</span><a href="https://www.instagram.com/chaachis.norbury/" target="_blank" rel="noopener">@chaachis.norbury</a></li>
+          <li><span>Address</span><a href="https://www.google.com/maps/dir/?api=1&destination=1583+London+Rd%2C+Norbury%2C+London+SW16+4AA" target="_blank" rel="noopener">1583 London Rd, SW16 4AA</a></li>
+          <li id="emailRow" hidden><span>Email</span><a id="emailLink" href="#"></a></li>
+        </ul>
+      </div>
+      <form class="contact__form glass reveal" name="enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="enquiryForm" style="--d:.15s">
+        <input type="hidden" name="form-name" value="enquiry" />
+        <p hidden><label>Don't fill this in: <input name="bot-field" /></label></p>
+        <div class="field"><input id="f-name" name="name" required placeholder=" " autocomplete="name" /><label for="f-name">Your name</label></div>
+        <div class="field"><input id="f-email" name="email" type="email" required placeholder=" " autocomplete="email" /><label for="f-email">Email address</label></div>
+        <div class="field">
+          <select id="f-topic" name="topic">
+            <option>General enquiry</option>
+            <option>Events &amp; private hire</option>
+            <option>Whole cake order</option>
+            <option>Allergens &amp; dietary</option>
+            <option>Feedback</option>
+          </select>
+          <label for="f-topic" class="static">Topic</label>
+        </div>
+        <div class="field"><textarea id="f-msg" name="message" rows="4" required placeholder=" "></textarea><label for="f-msg">Your message</label></div>
+        <input type="hidden" name="source" value="Contact section" />
+        <button class="btn btn--gold btn--full magnetic" type="submit">Send message</button>
+        <p class="form-status" id="formStatus" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="assets/img/logo-512.png" alt="Chaachi's logo" width="88" height="88" loading="lazy" />
+    <p class="footer__word">Chaachi's</p>
+    <p class="muted">Family-run halal café &middot; 1583 London Rd, Norbury, London SW16 4AA</p>
+    <div class="footer__links">
+      <a href="#menu">Menu</a><a href="#reviews">Reviews</a><a href="#visit">Hours</a>
+      <a href="https://www.instagram.com/chaachis.norbury/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <p class="muted small">&copy; <span id="year"></span> Chaachi's Norbury. All meat is HMC.</p>
+  </footer>
+
+  <!-- CHAT WIDGET -->
+  <button class="chat-fab" id="chatFab" aria-label="Chat with Chaachi's" aria-expanded="false" aria-controls="chat">
+    <img src="assets/img/logo-512.png" alt="" />
+    <span class="chat-fab__ping"></span>
+  </button>
+  <section class="chat" id="chat" aria-label="Chat with Chaachi's" hidden>
+    <header class="chat__head">
+      <img src="assets/img/logo-512.png" alt="" />
+      <div><b>Chaachi's</b><small id="chatStatus">Usually replies on Instagram</small></div>
+      <button class="chat__close" id="chatClose" aria-label="Close chat">×</button>
+    </header>
+    <div class="chat__body" id="chatBody" aria-live="polite"></div>
+    <div class="chat__chips" id="chatChips"></div>
+    <form class="chat__input" id="chatInput" autocomplete="off">
+      <input id="chatText" placeholder="Ask about hours, menu, events…" aria-label="Type a message" />
+      <button type="submit" aria-label="Send">➤</button>
+    </form>
+  </section>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
