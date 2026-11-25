@@ -124,6 +124,7 @@ function renderMenu() {
 
 /* ---------------- Instagram feed (latest posts) ---------------- */
 const IG_POSTS = [
+  { id: "DgHw9euNt9l", type: "photo", img: "festive-fair", date: "2026-11-24", likes: 18, cap: "Find us at the TBXH Festive Fair at Sunley House, Croydon, with our NEW Gingerbread Matcha ✨🧸" },
   { id: "Df0Fuv9NpR7", type: "reel", img: "events-collage", date: "2026-11-16", likes: 53, cap: "Chaachi's events have officially begun! South has a new event space in town 🎀🎨" },
   { id: "DfxlMuSNpD9", type: "reel", img: "sip-paint", date: "2026-11-15", likes: 201, cap: "Today's Sip & Paint was everything and more! Thank you for helping us raise money for such a lovely cause." },
   { id: "De69mkkt4q0", type: "reel", img: "biscoff-latte", date: "2026-10-25", likes: 54, cap: "Biscoff latte kind of day 🍂🧡🍪" },
@@ -191,6 +192,15 @@ function renderReviews() {
     const end = track.scrollLeft + track.clientWidth >= track.scrollWidth - 10;
     track.scrollTo({ left: end ? 0 : track.scrollLeft + step(), behavior: "smooth" });
   }, 5500);
+}
+
+/* ---------------- Time-limited announcement ---------------- */
+// Shows the hero news pill until the end of the event day (London time), then hides it automatically.
+const NEWS_UNTIL = "2026-11-25";
+function renderNews() {
+  const el = $("#heroNews"); if (!el) return;
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London" }).format(new Date()); // YYYY-MM-DD
+  el.hidden = today > NEWS_UNTIL;
 }
 
 /* ---------------- Opening hours / live status ---------------- */
@@ -285,7 +295,7 @@ function initChat() {
   const intents = [
     { k: /(halal|\bhmc\b|\bmeat\b|vegan|vegetarian|allerg|dairy|gluten|\bnuts?\b|lactose)/i, a: () => botSay("All our meat is <b>HMC certified halal</b>. We have vegetarian options and dairy alternatives (soya, almond, oat). For allergens, please ask at the till or message us.", igActions) },
     { k: /\b(hours?|open|opening|close[sd]?|closing|times?|today|tonight|late|when)\b/i, a: () => botSay(`We're open <b>every day from 3.30pm</b>:\nMon–Thu · 3.30pm–10.30pm\nFri & Sat · 3.30pm–12.30am\nSun · 3.30pm–10.30pm\n\nRight now: <b>${openStatus().text}</b>`, [{ label: "See full hours", href: "#visit" }]) },
-    { k: /matcha/i, a: () => botSay("Our matchas are a customer favourite 🍵 Blueberry or Vanilla (milk/oat) £4.95, and the signature <b>Matcha w/ Strawberry Foam</b> £5.25. Ask about the Birthday Cake Matcha too!", [{ label: "Matcha menu", href: "#menu" }]) },
+    { k: /matcha/i, a: () => botSay("Our matchas are a customer favourite 🍵 Blueberry or Vanilla (milk/oat) £4.95, and the signature <b>Matcha w/ Strawberry Foam</b> £5.25. Ask about the Birthday Cake Matcha and our new festive <b>Gingerbread Matcha</b> too!", [{ label: "Matcha menu", href: "#menu" }]) },
     { k: /\b(chai|karak|teas?|nar|pomegranate)\b/i, a: () => botSay("Karak Chai, Mint Tea and Nar Çay (pomegranate tea, sourced from Turkey) are all £3.25 ☕") },
     { k: /(cakes?\b|desserts?|sweets?\b|tiramisu|kunaf|cheesecake|brownie|cookie)/i, a: () => botSay("Everything sweet is homemade by Chaachi: Pistachio Tiramisu £6.45, Chocolate Cake w/ Pistachio Kunafe £5.95, Burnt Basque Cheesecake £6.95 and more. Want a whole cake? Send us an enquiry!", [{ label: "Order a cake", onClick: () => showEmailForm("Whole cake order") }]) },
     { k: /\b(where|address|location|directions?|park|parking|station|find you|postcode)\b/i, a: () => botSay("You'll find us at <b>1583 London Rd, Norbury, London SW16 4AA</b>. There's free street parking nearby, and we're a short walk from Norbury station.", [{ label: "Get directions", href: CONFIG.DIRECTIONS, primary: true }]) },
@@ -489,7 +499,7 @@ function initVideo() {
 document.body.classList.add("is-loading");
 document.addEventListener("DOMContentLoaded", () => {
   $("#year").textContent = new Date().getFullYear();
-  renderMenu(); renderInstagram(); renderReviews(); renderStatus(); setInterval(renderStatus, 60000);
+  renderMenu(); renderInstagram(); renderReviews(); renderStatus(); renderNews(); setInterval(() => { renderStatus(); renderNews(); }, 60000);
   initContactForm(); initChat(); initMotion(); initGallery(); initLightbox(); initVideo();
 });
 window.addEventListener("load", () => {
