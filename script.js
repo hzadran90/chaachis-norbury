@@ -103,7 +103,16 @@ function renderMenu() {
         }).join("")}
       </div>`).join("");
   };
-  tabs.addEventListener("click", (e) => { const b = e.target.closest(".menu__tab"); if (b) show(b.dataset.id); });
+  tabs.addEventListener("click", (e) => {
+    const b = e.target.closest(".menu__tab"); if (!b) return;
+    show(b.dataset.id);
+    b.scrollIntoView({ block: "nearest", inline: "center", behavior: reduceMotion ? "auto" : "smooth" });
+    // if the reader has scrolled down into a long list, bring the new list's top back into view
+    const stuck = getComputedStyle(tabs).position === "sticky";
+    const panelTop = panel.getBoundingClientRect().top;
+    const offset = stuck ? tabs.getBoundingClientRect().bottom + 12 : 90;
+    if (panelTop < offset) window.scrollBy({ top: panelTop - offset, behavior: reduceMotion ? "auto" : "smooth" });
+  });
   tabs.addEventListener("keydown", (e) => {
     if (!["ArrowRight", "ArrowLeft"].includes(e.key)) return;
     const list = $$(".menu__tab", tabs); const i = list.indexOf(document.activeElement);
@@ -377,8 +386,17 @@ function initMotion() {
 
   // mobile nav
   const burger = $("#burger");
-  burger.addEventListener("click", () => { const o = !nav.classList.contains("open"); nav.classList.toggle("open", o); burger.setAttribute("aria-expanded", o); document.body.style.overflow = o ? "hidden" : ""; });
-  $$("#navLinks a").forEach((a) => a.addEventListener("click", () => { nav.classList.remove("open"); burger.setAttribute("aria-expanded", false); document.body.style.overflow = ""; }));
+  const setMenu = (o) => {
+    nav.classList.toggle("open", o);
+    document.body.classList.toggle("nav-open", o);
+    burger.setAttribute("aria-expanded", o);
+    burger.setAttribute("aria-label", o ? "Close menu" : "Open menu");
+    document.body.style.overflow = o ? "hidden" : "";
+  };
+  burger.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
+  $$("#navLinks a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && nav.classList.contains("open")) { setMenu(false); burger.focus(); } });
+  matchMedia("(min-width: 921px)").addEventListener("change", (e) => { if (e.matches) setMenu(false); });
 
   if (reduceMotion || !matchMedia("(hover: hover)").matches) return;
 
